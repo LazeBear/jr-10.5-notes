@@ -1,0 +1,14 @@
+mongod
+-> 在当前窗口下，运行mongodb server的进程
+-> ctrl + c, 关闭server，或者关闭窗口，也能关闭server
+
+service
+-> 系统服务， 每次开机自动重启
+
+mongo
+-> 在当前窗口下，运行mongo shell, command line interface
+
+mongoose
+
+
+document.save();
