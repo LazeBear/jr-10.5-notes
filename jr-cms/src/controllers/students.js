@@ -24,9 +24,23 @@ async function getStudent(req, res) {
   return res.json(student);
 }
 
+// api/students?fields=courses;
 async function getAllStudent(req, res) {
-  const students = await Student.find().exec();
+  const { page = 1, pageSize = 10, q = '', fields } = req.query; // per_page, per-page
+
+  // fields=courses
+  // [courses]
+  // ` +courses`
+  // const select = fields.split(';').filter(i => i).map(i => ` +${i}`).join('');
+
+  const limit = Math.max(pageSize * 1, 10);
+  const skip = (Math.max(page * 1, 1) - 1) * limit;
+  const students = await Student.find().limit(limit).skip(skip).exec();
+  // Student.find({$or:[{firstName: {$regex: q}},{lastName: {$regex:q}}]})
+  // new RegExp(req.query.q);
+  // Student.find().select(select)
   return res.json(students);
+  // return res.json({ data: students, pagination: totalCount });
 }
 
 async function updateStudent(req, res) {
